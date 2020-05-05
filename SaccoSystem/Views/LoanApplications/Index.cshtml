@@ -1,0 +1,231 @@
+﻿@model PagedList.IPagedList<SaccoSystem.Models.LoanApplication>
+@using PagedList.Mvc;
+@using Vereyon.Web;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+@{
+    ViewBag.Title = "Loan Applications";
+}
+
+@*@Html.RenderFlashMessages();*@
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Index", "LoanApplications", FormMethod.Get))
+{
+    <p>
+        Find by Name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div>
+    <input type="submit" id="disburse" class="btn-success" value="Disburse" />
+
+
+</div>
+
+@if (TempData["Success"] != null)
+    {
+        <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+            TempData.Keep("Message");
+
+    }
+    else
+    {
+
+        <p class="alert alert-warning" id="failMessage">@TempData["Success"]</p>
+            TempData.Keep("Message");
+
+    }
+
+@Html.RenderFlashMessages()
+
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.LoanRefID)*@
+            LoanRefID
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.EmployeeNo)*@
+            EmployeeNo.
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.EmployerName)*@
+            EmployerName
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.CurrentSafPhoneNo)*@
+            Current Saf PhoneNo.
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.DeductionAccnt)*@
+            Deduction Accnt
+        </th>
+
+        <th>
+            @*@Html.DisplayNameFor(model => model.LoanValue)*@
+            Loan Value
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Product)*@
+            Product
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.LoanPeriod)*@
+            Period
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Instalment)*@
+            Installment
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.LoanSuccess)*@
+            Disbursed?
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.DateOfDisbursement)*@
+            @Html.ActionLink("Application Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.PeriodPaid)*@
+            Period Paid
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.TermRemContractual)*@
+            TermRem. Contractual
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.InstallmntPaid)*@
+            Installment Paid
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.TotalArrears)*@
+            Total Arrears
+        </th>
+        <th>
+
+            Approved
+        </th>
+
+        <th>
+
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoanRefID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentSafPhoneNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeductionAccnt)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.LoanValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoanPeriod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Instalment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoanSuccess)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfApplication)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PeriodPaid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TermRemContractual)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InstalAmntPaid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalArrears)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Approved)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+
+    $("#disburse").click(function (e) {
+
+        $.ajax({
+            type: "POST",
+            url: "/LoanApplications/Disburse",
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+
+            success: function (result, status, xhr) {
+
+              // window.location.href = '/LoanApplications/Index';
+                console.log("Response: " + result);
+                alert("Loan Disbursement Successful");
+                $('#successMessage').html("Success");
+            },
+
+            error: function (xhr, status, error) {
+
+            // window.location.href = '/LoanApplications/Index';
+
+                console.log("Error: " + error);
+
+                $('#successMessage').html(@TempData["Success"]);
+                                alert("Loan Disbursement FAILED");
+
+            }
+        });
+
+    });
+
+
+</script>
+

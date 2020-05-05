@@ -1,0 +1,132 @@
+﻿@model PagedList.IPagedList<SaccoSystem.Models.MemberDetails>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Member Details";
+}
+
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Index", "MemberDetails", FormMethod.Get))
+{
+    <p>
+        Find by Name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Country)*@
+            Country
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Branch)*@
+            Branch
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.LoanRefID)*@
+            LoanRefID
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.ClientRefID)*@
+            ClientRefID
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Surname)*@
+            Surname
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.FirstName)*@
+            @Html.ActionLink("FirstName", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+
+        
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.IDNumber)*@
+            IDNumber
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.EmployeeNo)*@
+            Employee No.
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.PhoneNo)*@
+            PhoneNo.
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.EmployerGroup)*@
+            Employer Group
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.PaymentMethod)*@
+            Payment Method
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Product)*@
+            Product
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Branch)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoanRefID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClientRefID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IDNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployerGroup)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentMethod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<br />
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+

@@ -1,0 +1,146 @@
+﻿@model SaccoSystem.Models.LoanApplication
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LoanApplication</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LoanRefID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoanRefID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentSafPhoneNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentSafPhoneNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeductionAccnt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeductionAccnt)
+        </dd>      
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LoanValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoanValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LoanPeriod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoanPeriod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Instalment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Instalment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LoanSuccess)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoanSuccess)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfApplication)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfApplication)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PeriodPaid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PeriodPaid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TermRemContractual)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TermRemContractual)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InstalAmntPaid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InstalAmntPaid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalArrears)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalArrears)
+        </dd> 
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Approved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Approved)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
